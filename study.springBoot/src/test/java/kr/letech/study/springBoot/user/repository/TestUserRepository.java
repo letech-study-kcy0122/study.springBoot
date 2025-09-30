@@ -15,7 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.letech.study.springBoot.user.entity.Users;
+import kr.letech.study.springBoot.user.entity.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -45,14 +45,14 @@ class TestUserRepository {
 	@DisplayName("delYn = 'N' 인 사용자 전체 조회")
 	void testFindAllByDelYn() {
 		// given
-		Users user1 = new Users();
+		UserEntity user1 = new UserEntity();
 		user1.setUserId("hong");
 		user1.setUserPw("1234");
 		user1.setUserNm("홍길동");
 		user1.setDelYn("N");
 		userRepository.save(user1);
 		
-		Users user2 = new Users();
+		UserEntity user2 = new UserEntity();
 		user2.setUserId("kim");
 		user2.setUserPw("5678");
 		user2.setUserNm("김철수");
@@ -60,7 +60,7 @@ class TestUserRepository {
 		userRepository.save(user2);
 		
 		// when
-		List<Users> result = userRepository.findAllByDelYn("N");
+		List<UserEntity> result = userRepository.findAllByDelYn("N");
 		
 		// then
 		assertThat(result).hasSize(1);

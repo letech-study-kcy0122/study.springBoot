@@ -8,7 +8,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import kr.letech.study.springBoot.user.entity.Users;
+import kr.letech.study.springBoot.user.entity.UserEntity;
 
 
 /**
@@ -27,10 +27,20 @@ import kr.letech.study.springBoot.user.entity.Users;
  *  수정일			수정자			수정내용
  *  ------------------------------------------------
  *  2025-09-26		KCY				최초 생성
+ *  2025-09-29		KCY				8080서버 서비스에서 각각 호출하도록
+ *  								REST API 분기
  */
 @Repository
-public interface UserRepository extends JpaRepository<Users, Long>{
+public interface UserRepository extends JpaRepository<UserEntity, String>{
 	
-	public List<Users> findAllByDelYn(String delYn);
-	public Users findFirstByUserIdAndDelYn(String userId, String delYn);
+	//0929_8080서버 서비스에서 각각 호출하도록 REST API 분기
+	//UserList
+	public List<UserEntity> findAllByDelYn(String delYn);
+	public List<UserEntity> findAllByDelYnAndUserIdContaining(String delYn, String userId);
+	public List<UserEntity> findAllByDelYnAndUserNmContaining(String delYn, String userNm);
+	public List<UserEntity> findAllByDelYnAndUserIdContainingOrUserNmContaining(String delYn, String userId, String userNm);
+	
+	//UserDetail
+	public UserEntity findFirstByDelYnAndUserId(String delYn, String userId);
+	
 }

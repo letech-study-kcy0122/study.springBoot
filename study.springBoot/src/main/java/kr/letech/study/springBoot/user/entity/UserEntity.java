@@ -34,15 +34,27 @@ import lombok.ToString;
  *  ------------------------------------------------
  *  2025-09-26		KCY				최초 생성
  */
-@Entity @Table(name="USERS") @Getter @Setter @ToString
+@Entity @Table(name="USER") @Getter @Setter @ToString(exclude = "userPw")
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@DiscriminatorColumn
-public class Users extends BaseEntity {
-	@Id @Column(name="USER_ID")		private String userId;
-	@Column(name="USER_PW")			private String userPw;
-	@Column(name="USER_NM")			private String userNm;
-	@Column(name="REGNO1")			private Integer regno1;			
-	@Column(name="REGNO2")			private Integer regno2;
-	@Column(name="PROFILE_GRP_ID")	private String profileGrpId;
+public class UserEntity extends BaseEntity {
+	
+	@Id @Column(name="USER_ID")
+	private String userId;
+	
+	@Column(name = "USER_PW") /* @JsonIgnore - 막아놓으면 8080에서 받아올 때 지워버림.. Entity와 DTO 게층을 분리해놓는 방향이 좋다 하드라. */
+	private String userPw;
+	
+	@Column(name="USER_NM")
+	private String userNm;
+	
+	@Column(name="REGNO1")
+	private Integer regno1;			
+	
+	@Column(name="REGNO2")
+	private Integer regno2;
+	
+	@Column(name="PROFILE_GRP_ID")
+	private String profileGrpId;
 	
 }

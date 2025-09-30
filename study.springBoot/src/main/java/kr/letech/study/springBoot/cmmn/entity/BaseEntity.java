@@ -7,10 +7,14 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * 
@@ -29,12 +33,21 @@ import lombok.ToString;
  *  ------------------------------------------------
  *  2025-09-26		KCY				최초 생성
  */
-@MappedSuperclass @Getter @Setter @ToString
+@MappedSuperclass @Getter @Setter
 public abstract class BaseEntity {
 	
-	@Column(name="RGST_ID")	private String rgstId;	
-	@Column(name="RGST_DT")	private Date rgstDt;
-	@Column(name="UPDT_ID")	private String updtId;
-	@Column(name="UPDT_DT")	private Date updtDt;
-	@Column(name="DEL_YN")	private String delYn;
+	@Column(name="RGST_ID")
+	protected String rgstId;	
+	
+	@Column(name="RGST_DT") @CreationTimestamp @Temporal(TemporalType.TIMESTAMP)
+	protected Date rgstDt;
+	
+	@Column(name="UPDT_ID")
+	protected String updtId;
+	
+	@Column(name="UPDT_DT") @UpdateTimestamp @Temporal(TemporalType.TIMESTAMP)
+	protected Date updtDt;
+	
+	@Column(name="DEL_YN", nullable=false)
+	protected String delYn = "N";	//<-- default Value
 }
