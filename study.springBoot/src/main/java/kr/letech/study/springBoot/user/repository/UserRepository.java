@@ -6,6 +6,9 @@ package kr.letech.study.springBoot.user.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import kr.letech.study.springBoot.user.entity.UserEntity;
@@ -42,5 +45,12 @@ public interface UserRepository extends JpaRepository<UserEntity, String>{
 	
 	//UserDetail
 	public UserEntity findFirstByDelYnAndUserId(String delYn, String userId);
+	
+	//UserDelete
+	@Modifying
+	@Query("UPDATE UserEntity u " +
+	       "SET u.delYn = 'Y', u.updtId = :username, u.updtDt = CURRENT_TIMESTAMP " +
+	       "WHERE u.userId = :userId")
+	public void deleteByUserId(@Param("userId") String userId, @Param("username") String username);
 	
 }

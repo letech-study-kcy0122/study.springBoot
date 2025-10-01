@@ -1,7 +1,7 @@
 /**
  * 
  */
-package kr.letech.study.springBoot.cmmn.restTemplate;
+package kr.letech.study.springBoot.cmmn.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

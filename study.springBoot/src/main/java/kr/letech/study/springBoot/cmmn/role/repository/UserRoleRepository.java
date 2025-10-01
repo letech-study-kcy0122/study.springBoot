@@ -42,7 +42,7 @@ public interface UserRoleRepository extends JpaRepository<UserRoleEntity, UserRo
 			+ " SET ur.delYn = 'Y', ur.updtId = :username, ur.updtDt = CURRENT_TIMESTAMP "
 			+ " WHERE ur.id.userId = :userId "
 			+ " AND ur.id.userRole NOT IN :activeRoles ")
-	void softDeleteNotInRoles(@Param("userId") String userId
+	public void softDeleteNotInRoles(@Param("userId") String userId
 			, @Param("activeRoles") List<String> activeRoles
 			, @Param("username") String username);
 
@@ -50,6 +50,6 @@ public interface UserRoleRepository extends JpaRepository<UserRoleEntity, UserRo
 	
 	//0930_사용자 권한 추가/수정 단계에서 검증에 필요한 메소드
 	public Boolean existsByDelYnAndId_UserIdAndId_userRole(String delYn, String userId, String userRole);
-	List<UserRoleEntity> findByDelYnAndId_UserId(String userId, String delYn);
-	Optional<UserRoleEntity> findByDelYnAndId_UserIdAndId_UserRole(String delYn, String userId, String userRole);
+	public List<UserRoleEntity> findByDelYnAndId_UserId(String userId, String delYn);
+	public Optional<UserRoleEntity> findByDelYnAndId_UserIdAndId_UserRole(String delYn, String userId, String userRole);
 }

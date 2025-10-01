@@ -76,15 +76,33 @@ public class RESTUserController {
 		return ResponseEntity.ok(Envelope.ok(cid, entity));
 	}
 	
-	@RequestMapping(value="", method = RequestMethod.PUT)
+	@RequestMapping(value="/{userId}", method = RequestMethod.PUT)
 	public ResponseEntity<Envelope<UserEntity>> putUser(
-			@RequestBody UserEntity user
+			@PathVariable("userId") String userId
+			, @RequestBody UserEntity user
+			, @RequestParam("username") String username
 			) {
 		log.debug("▩▩▩▩▩ REST_API:: USER_CONTROLLER.putUser() 연결.");
 		
-		UserEntity entity = userService.modifyUser(user);
+		UserEntity entity = userService.modifyUser(userId, user, username);
 		String cid = UUID.randomUUID().toString();
 		return ResponseEntity.ok(Envelope.ok(cid, entity));
 	}
 	
+	@RequestMapping(value="/{userId}", method = RequestMethod.DELETE)
+	public ResponseEntity<Envelope<UserEntity>> deleteUser(
+			@PathVariable("userId") String userId
+			, @RequestParam("username") String username
+			) {
+		log.debug("▩▩▩▩▩ REST_API:: USER_CONTROLLER.deleteUser() 연결.");
+		
+		UserEntity entity = userService.removeUser(userId, username);
+		String cid = UUID.randomUUID().toString();
+		return ResponseEntity.ok(Envelope.ok(cid, entity));
+	}
+	
+//    @GetMapping("/login")
+//    public Map<String, String> me(Principal principal) {
+//        return Map.of("username", principal.getName());
+//    }
 }

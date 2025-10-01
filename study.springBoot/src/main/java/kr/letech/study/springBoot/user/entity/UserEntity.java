@@ -37,6 +37,12 @@ import lombok.ToString;
 @Entity @Table(name="USER") @Getter @Setter @ToString(exclude = "userPw")
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@DiscriminatorColumn
+//@SQLDelete(sql = " UPDATE USER "
+//			   + " SET DEL_YN = 'Y', "
+//			   + "     UPDT_ID = ?, "
+//			   + "     UPDT_DT = ?, "
+//			   + " WHERE USER_ID = ? ")
+//@Where(clause  = " DEL_YN = 'N' ")
 public class UserEntity extends BaseEntity {
 	
 	@Id @Column(name="USER_ID")

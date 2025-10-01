@@ -4,10 +4,11 @@
 package kr.letech.study.springBoot.user.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.letech.study.springBoot.user.entity.UserEntity;
 import kr.letech.study.springBoot.user.repository.UserRepository;
@@ -33,7 +34,6 @@ public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
 	private final String DEL_N = "N";
-	private final PasswordEncoder passwordEncoder;
 	
 	@Override
 	public List<UserEntity> readUserList(Integer keyword, String term) {
@@ -77,18 +77,43 @@ public class UserServiceImpl implements UserService {
 		entity.setProfileGrpId(u.getProfileGrpId());
 		//rgstDt, updtDt는 어노테이션으로 해결.
 		//delYn은 기본값 "N" 입력됨.
+		//나중에 DTO 계층을 추가하는 게 맞을까? 굳이일까? 비밀번호는 JSON 숨기는게 맞지않나?
 		return userRepository.save(entity);
 	}
 	
-	@Override
-
-	public UserEntity modifyUser(UserEntity user) {
+	@Override @Transactional
+	public UserEntity modifyUser(String userId, UserEntity u, String username) {
 		log.debug("▩▩▩ USER_SERVICE_IMPL.modifyUser( user ) 호출.");
 		
 		//1) 엔터티 가져와서 조회하고
+		UserEntity entity = userRepository.findFirstByDelYnAndUserId(DEL_N, userId);
 		
 		//2) 수정할 값만 바꿔주면
+		log.debug("▩ ----- 받아온 entity::: {}", u);
+		//---entity.setUserId();
+		entity.setUserPw(u.getUserPw());
+		entity.setUserNm(u.getUserNm());
+		entity.setRegno1(u.getRegno1());
+		entity.setRegno2(u.getRegno2());
+		//---entity.setRgstId();
+		entity.setUpdtId(username);
+		entity.setProfileGrpId(u.getProfileGrpId());
 		
 		//0) 알아서 업데이트 된다.
+		return u;
+	}
+	
+	@Override @Transactional
+	public UserEntity removeUser(String userId, String username) {
+		log.debug("▩▩▩ USER_SERVICE_IMPL.removeUser( ) 호출.");
+		
+		UserEntity user = userRepository.findById(userId).orElseThrow();
+		
+		user.setDelYn("Y");
+		user.setUpdtId(username);
+		user.setUpdtDt(new Date());
+		
+		userRepository.deleteByUserId(userId, username);
+		return user;
 	}
 }

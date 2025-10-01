@@ -25,5 +25,6 @@ public interface UserService {
 	public UserEntity readUser(String userId);
 	
 	public UserEntity createUser(UserEntity user);
-	public UserEntity modifyUser(UserEntity user);
+	public UserEntity modifyUser(String userId, UserEntity user, String username);
+	public UserEntity removeUser(String userId, String username);
 }
