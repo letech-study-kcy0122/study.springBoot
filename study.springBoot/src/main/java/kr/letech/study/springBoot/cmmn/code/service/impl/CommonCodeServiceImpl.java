@@ -34,6 +34,7 @@ public class CommonCodeServiceImpl implements CommonCodeService {
 	
 	@Override
 	public List<CommonCodeEntity> readCommonCodeList(String cmmnGrpCd) {
+		log.debug("▩▩▩ COMMON_CODE_SERVICE_IMPL.readCommonCodeList() 호출.");
 		List<CommonCodeEntity> cmmnList = new ArrayList<>();
 		
 		if(!cmmnGrpCd.isBlank()) {

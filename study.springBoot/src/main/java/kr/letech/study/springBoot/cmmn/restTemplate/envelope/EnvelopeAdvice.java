@@ -39,7 +39,7 @@ public class EnvelopeAdvice implements ResponseBodyAdvice<Object> {
 	public boolean supports(MethodParameter returnType
 						  , Class<? extends HttpMessageConverter<?>> converterType) {
 		
-		return true;	//<--"모든 응답에 적용한다"
+		return true; //<--"모든 응답에 적용한다"
 	}
 
 	@Override

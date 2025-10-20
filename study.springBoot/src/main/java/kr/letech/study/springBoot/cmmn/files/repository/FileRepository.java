@@ -53,4 +53,9 @@ public interface FileRepository extends JpaRepository<FilesEntity, FilesId>{
 								 , @Param("username") String username);
 	
 	public Integer findMaxId_FileSeqById_FileGrpId(String fileGrpId);
+	
+//	public Integer findFirstByDelYnAndId_FileGrpId(String delYn, String fileGrpId)
+	
+	public Integer countByDelYnAndId_FileGrpId(String delYn, String fileGrpId);
+	
 }

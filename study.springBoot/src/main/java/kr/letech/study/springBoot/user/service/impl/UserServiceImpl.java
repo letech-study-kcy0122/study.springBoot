@@ -43,12 +43,16 @@ public class UserServiceImpl implements UserService {
 		List<UserEntity> userList = new ArrayList<>();
 		
 		if("default".equals(term)) {
-			userList = userRepository.findAllByDelYn(DEL_N);
+			log.debug("▩ ----- {\"default\".equals(term)} 분기를 탐.");
+			userList = userRepository.findAllByDelYnOrderByRgstDtDesc(DEL_N);
 		} else if(keyword == 0) {
+			log.debug("▩ ----- {keyword == 0} 분기를 탐.");
 			userList = userRepository.findAllByDelYnAndUserIdContainingOrUserNmContaining(DEL_N, term, term);
 		} else if(keyword == 1) {
+			log.debug("▩ ----- {keyword == 1} 분기를 탐.");
 			userList = userRepository.findAllByDelYnAndUserIdContaining(DEL_N, term);
 		} else if(keyword == 2) {
+			log.debug("▩ ----- {keyword == 2} 분기를 탐.");
 			userList = userRepository.findAllByDelYnAndUserNmContaining(DEL_N, term);
 		}
 		
@@ -90,6 +94,7 @@ public class UserServiceImpl implements UserService {
 		
 		//2) 수정할 값만 바꿔주면
 		log.debug("▩ ----- 받아온 entity::: {}", u);
+		log.debug("▩ ----- rgstDt::: {}", entity.getRgstDt());
 		//---entity.setUserId();
 		entity.setUserPw(u.getUserPw());
 		entity.setUserNm(u.getUserNm());

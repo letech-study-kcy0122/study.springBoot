@@ -38,7 +38,7 @@ public abstract class AbstractCrudService<T extends UpdatableEntity, ID> {
 	        found.update(actorId);
 	        return repository.save(found);
 	    } else {
-	        entity.insert(actorId);                 // ★ 추가
+	        entity.insert(actorId);
 	        return repository.save(entity);
 	    }
 	}

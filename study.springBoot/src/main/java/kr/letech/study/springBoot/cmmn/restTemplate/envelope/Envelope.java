@@ -16,7 +16,6 @@ import java.util.Map;
  *		data: 실제 비즈니스 데이터(payload)
  *		links: 잘 모르겠음.
  *		meta: 페이징/정렬/서버버전 등의 메타데이터
- *	https://docs.oracle.com/en/java/javase/17/language/records.html?utm_source=chatgpt.com
  * </pre>
  * 
  * < 개정이력 >

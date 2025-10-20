@@ -38,7 +38,7 @@ public interface UserRepository extends JpaRepository<UserEntity, String>{
 	
 	//0929_8080서버 서비스에서 각각 호출하도록 REST API 분기
 	//UserList
-	public List<UserEntity> findAllByDelYn(String delYn);
+	public List<UserEntity> findAllByDelYnOrderByRgstDtDesc(String delYn);
 	public List<UserEntity> findAllByDelYnAndUserIdContaining(String delYn, String userId);
 	public List<UserEntity> findAllByDelYnAndUserNmContaining(String delYn, String userNm);
 	public List<UserEntity> findAllByDelYnAndUserIdContainingOrUserNmContaining(String delYn, String userId, String userNm);

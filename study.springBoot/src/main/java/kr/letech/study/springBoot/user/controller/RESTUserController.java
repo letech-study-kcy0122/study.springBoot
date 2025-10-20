@@ -32,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
  *  ------------------------------------------------
  *  2025-09-26		KCY				최초 생성
  *  2025-09-29		KCY				최초 작업
+ *  2025-10-16		KCY				비밀번호 2차인증 컨트롤러 구현
  */
 @RestController @RequiredArgsConstructor @Slf4j
 @RequestMapping("/user-management/users")
@@ -45,6 +46,7 @@ public class RESTUserController {
 			, @RequestParam(name = "term", required=false, defaultValue="default") String term
 			) {
 		log.debug("▩▩▩▩▩ REST_API:: USER_CONTROLLER.getUserList() 연결.");
+		log.debug("▩ SEARCH-BOX: KEYWORD = \"{}\", TERM = \"{}\"", keyword, term);
 		
 		List<UserEntity> voList = userService.readUserList(keyword, term);
 		String cid = UUID.randomUUID().toString();
@@ -92,7 +94,7 @@ public class RESTUserController {
 	@RequestMapping(value="/{userId}", method = RequestMethod.DELETE)
 	public ResponseEntity<Envelope<UserEntity>> deleteUser(
 			@PathVariable("userId") String userId
-			, @RequestParam("username") String username
+			, @RequestParam(name="username", required=false) String username
 			) {
 		log.debug("▩▩▩▩▩ REST_API:: USER_CONTROLLER.deleteUser() 연결.");
 		
@@ -100,9 +102,4 @@ public class RESTUserController {
 		String cid = UUID.randomUUID().toString();
 		return ResponseEntity.ok(Envelope.ok(cid, entity));
 	}
-	
-//    @GetMapping("/login")
-//    public Map<String, String> me(Principal principal) {
-//        return Map.of("username", principal.getName());
-//    }
 }

@@ -60,7 +60,7 @@ class TestUserRepository {
 		userRepository.save(user2);
 		
 		// when
-		List<UserEntity> result = userRepository.findAllByDelYn("N");
+		List<UserEntity> result = userRepository.findAllByDelYnOrderByRgstDtDesc("N");
 		
 		// then
 		assertThat(result).hasSize(1);
